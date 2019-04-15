@@ -15,8 +15,8 @@ This tool doesn't require using any APIs online, registering somewhere etc - jus
 
 Structure
 =========
-There are .json files (so far only single file though) in the root folder that are supported manually and can be used from any programming environment.
-There're also generators that can convert the json file into any other format - so far only .lua not to bring in a heavy json parser into .lua bots
+There are .json files (so far only a single file though) in the root folder that are supported manually and can be used from any programming environment.
+There're also generators that can convert the json file into any other format - so far only .lua not to bring in a heavy json parser into .lua bots.
 There's also a helper .lua library ./lua/calendar.lua build around the data to allow for even easier work with trading dates in lua
 
 Next steps
@@ -27,7 +27,7 @@ Next steps
 
 Contriubtion
 ============
-Contributors are welcome!
+Contributions are welcome!
 Just create a pull request with required changes - I'll review them (so you'll end up having at least a single soul who has double-checked your data) and merge it if all is fine
 
 Development
