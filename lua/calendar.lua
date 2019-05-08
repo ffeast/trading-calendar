@@ -127,6 +127,37 @@ function mod.get_weekday(year, month, day)
     return os.date("*t", os.time{year=year, month=month, day=day})["wday"]
 end
 
+function mod.format_date(year, month, day, format)
+    if format == nil then
+        error("empty format")
+    end
+    return os.date(format, os.time{year=year, month=month, day=day})
+end
+
+function mod.format_time(hour, min, sec, format)
+    if format == nil then
+        error("empty format")
+    end
+    if not (hour >= 0 and hour <= 23) then
+        error("invalid hour: " .. hour)
+    end
+    if not (min >= 0 and min <= 59) then
+        error("invalid min: " .. min)
+    end
+    if not (sec >= 0 and sec <= 59) then
+        error("invalid sec: " .. sec)
+    end
+    local time_struct = {
+        year = 2019,
+        month = 1,
+        day = 1,
+        hour = hour,
+        min = min,
+        sec = sec
+    }
+    return os.date(format, os.time(time_struct))
+end
+
 function mod.get_weekday_name(year, month, day)
     local wday = mod.get_weekday(year, month, day)
     return ({"sun", "mon", "tue", "wed", "thu", "fri", "sat" })[wday]
