@@ -185,6 +185,79 @@ describe("is_opening_auction", function()
     end)
 end)
 
+describe("parse_date", function()
+    it("valid 1-digit day value", function()
+        local dt = calendar.parse_date("7.03.2019")
+        assert.are.same({
+            day = 7,
+            month = 3,
+            year = 2019
+        }, dt)
+    end)
+    it("valid 2-digit day value", function()
+        local dt = calendar.parse_date("07.03.2019")
+        assert.are.same({
+            day = 7,
+            month = 3,
+            year = 2019
+        }, dt)
+    end)
+    it("valid 1-digit month value", function()
+        local dt = calendar.parse_date("27.3.2019")
+        assert.are.same({
+            day = 27,
+            month = 3,
+            year = 2019
+        }, dt)
+    end)
+    it("invalid value", function()
+        assert.is_nil(calendar.parse_date("broken"))
+        assert.is_nil(calendar.parse_date("27.53.2019"))
+        assert.is_nil(calendar.parse_date("270.12.2019"))
+    end)
+end)
+
+describe("parse_time", function()
+    it("valid 1-digit hour value", function()
+        local time = calendar.parse_time("9:15:52")
+        assert.are.same({
+            hour = 9,
+            min = 15,
+            sec = 52
+        }, time)
+    end)
+    it("valid 2-digit hour value", function()
+        local time = calendar.parse_time("09:15:52")
+        assert.are.same({
+            hour = 9,
+            min = 15,
+            sec = 52
+        }, time)
+    end)
+    it("valid 1-digit minute value", function()
+        local time = calendar.parse_time("09:1:52")
+        assert.are.same({
+            hour = 9,
+            min = 1,
+            sec = 52
+        }, time)
+    end)
+    it("valid 1-digit seconds value", function()
+        local time = calendar.parse_time("9:15:2")
+        assert.are.same({
+            hour = 9,
+            min = 15,
+            sec = 2
+        }, time)
+    end)
+    it("invalid value", function()
+        assert.is_nil(calendar.parse_time('broken'))
+        assert.is_nil(calendar.parse_time("55:12:05"))
+        assert.is_nil(calendar.parse_time("12:88:12"))
+        assert.is_nil(calendar.parse_time("12:13:77"))
+    end)
+end)
+
 describe("parse_datetime", function()
     it("valid value with 2-digit hour", function()
         local dt = calendar.parse_datetime("27.03.2019", "22:15:52")

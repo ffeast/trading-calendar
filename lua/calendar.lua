@@ -105,18 +105,59 @@ function mod.is_opening_auction(market, hour, minute)
 end
 
 function mod.parse_datetime(date, time)
-    day, month, year = string.match(date, "(%d%d).(%d%d).(%d%d%d%d)")
-    if day == nil then
+    local date = mod.parse_date(date)
+    if date == nil then
         return nil
     end
-    hour, min, sec = string.match(time, "(%d+)%p(%d%d)%p(%d%d)")
-    if hour == nil then
+    local time = mod.parse_time(time)
+    if time == nil then
         return nil
     end
     return {
-        day = tonumber(day),
-        month = tonumber(month),
-        year = tonumber(year),
+        day = date.day,
+        month = date.month,
+        year = date.year,
+        hour = time.hour,
+        min = time.min,
+        sec = time.sec
+    }
+end
+
+function mod.parse_date(date)
+    local day, month, year = string.match(date, "(%d+).(%d+).(%d+)")
+    if day == nil then
+        return nil
+    end
+    day = tonumber(day)
+    month = tonumber(month)
+    year = tonumber(year)
+    if (month < 1
+            or month > 12
+            or day < 1
+            or day > 31) then
+        return nil
+    end
+    return {
+        day = day,
+        month = month,
+        year = year
+    }
+end
+
+function mod.parse_time(time)
+    local hour, min, sec = string.match(time, "(%d+)%p(%d+)%p(%d+)")
+    if hour == nil then
+        return nil
+    end
+    hour = tonumber(hour)
+    min = tonumber(min)
+    sec = tonumber(sec)
+    if (hour > 23
+            or min > 59
+            or sec > 59) then
+        return nil
+    end
+    return {
         hour = tonumber(hour),
         min = tonumber(min),
         sec = tonumber(sec)
