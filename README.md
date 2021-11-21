@@ -22,7 +22,6 @@ There's also a helper .lua library ./lua/calendar.lua build around the data to a
 Next steps
 ==========
 * add a dividend calendar
-* add other markets (at least US)
 * add events calendars (important stats announcement dates and the like)
 
 Contriubtion
